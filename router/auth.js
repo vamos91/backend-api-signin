@@ -15,4 +15,7 @@ middleware.verifyUserNotExist,
 middleware.verifyPasswordLength,
 authController.signup)
 
+router.get('/current-user', middleware.getCurrentUser, authController.getUser)
+router.get('/logout', authController.logout)
+
 module.exports = router

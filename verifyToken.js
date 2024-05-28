@@ -1,8 +1,10 @@
 const db = require('./database/connection')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+
 
 exports.verifyUserExist = (req, res, next) => {
-    const sql = 'SELECT * FROM user where email=?'
+    const sql = 'SELECT * FROM users where email=?'
     db.query(sql, [req.body.email], (err, results, fields) => {
         if(!err){
             if(results.length > 0){
@@ -12,7 +14,7 @@ exports.verifyUserExist = (req, res, next) => {
                 res.status(403).json({ message: 'No user found' })
             }
         }else{
-           res.status(500).json({message: 'Error from server'})
+           res.status(500).json({message: err})
         }
     })
 }
@@ -26,7 +28,7 @@ exports.verifyPasswordLength = (req, res, next) => {
 }
 
 exports.verifyUserNotExist = (req, res, next) => {
-    const sql = 'SELECT * FROM user where email=?'
+    const sql = 'SELECT * FROM users where email=?'
     db.query(sql, [req.body.email], (err, results, fields) => {
         if (!err) {
             if (results.length > 0) {
@@ -35,13 +37,13 @@ exports.verifyUserNotExist = (req, res, next) => {
                 next() 
             }
         } else {
-            res.status(500).json({ message: 'Error from server' })
+            res.status(500).json({ message: err })
         }
     })
 }
 
 exports.verifyCredentialsExist = (req, res, next) => {
-    console.log(req.body)
+    console.log('verifyCredentialsExist', req.body)
     if(req.body.email !== undefined && req.body.password !== undefined){
         next()
     }else{
@@ -50,28 +52,24 @@ exports.verifyCredentialsExist = (req, res, next) => {
 }
 
 exports.verifyPassword = (req, res, next) => {
-    const sql = 'SELECT * FROM user where email=?'
-    db.query(sql, [req.body.email], (err, results, fields) => {
-        if (!err) {
-            console.log('one user found', results[0].password)
-            if (req.body.password === results[0].password){
-                next()
-            }else{
-                console.log('password not ok !')
-                res.status(403).json({message: 'Bad email or password'})
-            }
-        } else {
-            res.status(500).json({ message: 'Error from server' + err })
-        }
-    })
+    console.log('userData', req.userData)
+
+    if (bcrypt.compareSync(req.body.password, req.userData.password)){
+        next()
+    }else{
+        console.log('password not ok !')
+        res.status(403).json({message: 'Bad email or password'})
+    }      
 }
 
 exports.getCurrentUser = (req, res, next) => {
+    console.log('getcurrent user')
     if(req.headers.cookie){
         const token = req.headers.cookie.split("=")
         try {
             const decodedToken = jwt.verify(token[1], 'disney')
             console.log('decodedToken:', decodedToken)
+            req.userData = decodedToken
             next()
         } catch (error) {
             console.log(error)
@@ -79,6 +77,5 @@ exports.getCurrentUser = (req, res, next) => {
         }
     }else{
         res.status(401).json({ message: 'Unauthorized !' })
-    }
-    
+    } 
 }
