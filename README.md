@@ -6,7 +6,7 @@
 * d'ajouter un nouveau appartement (titre, description, prix)
 * d'afficher un appartement
 
-![This is an alt text.](/image/home.png "This is a sample image.")
+![This is an alt text.](/images/home.png "This is a sample image.")
 
 
 **L’application permet également de rentrer en contact avec l’ensemble des utilisateurs via un blog.**
@@ -174,7 +174,7 @@ Instructions
 
 👉 Codez l'application en fonction de la maquette... Good luck !
 
-![This is an alt text.](/image/Airbnb.png "This is a sample image.")
+![This is an alt text.](/images/Airbnb.png "This is a sample image.")
 
 
 
