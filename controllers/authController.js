@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken')
 
 exports.signin = (req, res) => {
     const token = jwt.sign({ 'iss': 'JWT course', "email": req.userData.email }, 'disney', { expiresIn: '1h' })
-    res.cookie('userToken', token).status(200).json({message: 'You are connected'})
+    //res.cookie('userToken', token).status(200).json({message: 'You are connected'})
+    res.status(200).json({message: 'You are connected', token: token})
 }
 
 exports.signup = (req, res) => {
-    console.log("salut les gens")
     const encryptedPassword = bcrypt.hashSync(req.body.password, 10);
     db.query('INSERT INTO users (email, password) value (?, ?)', [req.body.email, encryptedPassword], (err, results, fields) => {
         if(!err){

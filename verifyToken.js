@@ -63,19 +63,38 @@ exports.verifyPassword = (req, res, next) => {
 }
 
 exports.getCurrentUser = (req, res, next) => {
-    console.log('getcurrent user')
+    console.log('getcurrent user', req.headers.authorization)
+    var token;
     if(req.headers.cookie){
-        const token = req.headers.cookie.split("=")
-        try {
-            const decodedToken = jwt.verify(token[1], 'disney')
-            console.log('decodedToken:', decodedToken)
-            req.userData = decodedToken
-            next()
-        } catch (error) {
-            console.log(error)
-            res.status(403).json({message: 'Forbidden !'})
-        }
+        token = req.headers.cookie.split("=")
+    }else if(req.headers.authorization){
+        token = req.headers.authorization.split(" ")
     }else{
         res.status(401).json({ message: 'Unauthorized !' })
-    } 
+    }
+
+    try {
+        const decodedToken = jwt.verify(token[1], 'disney')
+        console.log('decodedToken:', decodedToken)
+        req.userData = decodedToken
+        next()
+    } catch (error) {
+        console.log(error)
+        res.status(403).json({message: error})
+    }
+
+    // if(req.headers.cookie){
+    //     const token = req.headers.cookie.split("=")
+    //     try {
+    //         const decodedToken = jwt.verify(token[1], 'disney')
+    //         console.log('decodedToken:', decodedToken)
+    //         req.userData = decodedToken
+    //         next()
+    //     } catch (error) {
+    //         console.log(error)
+    //         res.status(403).json({message: 'Forbidden !'})
+    //     }
+    // }else{
+    //     res.status(401).json({ message: 'Unauthorized !' })
+    // } 
 }
