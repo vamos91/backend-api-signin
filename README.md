@@ -1,15 +1,19 @@
 **R-bnb est une application mobile permettant de géolocaliser un utilisateur en matérialisant sa position (ses déplacements) sur une carte interactive et en offrant la possibilité d’y ajouter des points d'intérêt représentant des logements. L'application permettra:** 
-* d'afficher tous les appartements sur une carte
-* de se connecter
-* de s'incrire
-* d'afficher unique ses appartements
-* d'ajouter un nouveau appartement (titre, description, prix)
-* d'afficher un appartement
+
+* de se connecter.
+* de s'inscrire.
+* d'ajouter un nouveau appartement **(titre, description, prix)**.
+* d'afficher tous les appartements sous forme de 'marker' sur une carte autour de ta position géographique.
+* d'afficher tous les appartements sous forme de card (voir Airbnb au format mobile).
+* d'afficher uniquement ses appartements dans une screen.
+* d'afficher un appartement.
+* de 'liker' un appartement.
+* d'afficher tous les appartements que j'ai 'liker'.
+* trouver un lieu géographique et de l'afficher sur une carte.
+
 
 ![This is an alt text.](/images/home.png "This is a sample image.")
 
-
-**L’application permet également de rentrer en contact avec l’ensemble des utilisateurs via un blog.**
 
 
 _Cette fois-ci vous passerez du côté mobile grâce à React Native._
@@ -65,7 +69,7 @@ cd ./nextech/project/r-bnb/part1
 👉 Dans le répertoire part1, exécutez la commande expo start pour lancer l’app de base.
 
 ## 1.2 Lancer l’app
-3 solutions depuis Expo :
+2 solutions depuis Expo :
 
 
 👉 Directement sur le mobile :
@@ -108,11 +112,12 @@ Instructions
 ## 2.2 Créer les écrans
 👉 Dans un répertoire nommé screens, mettez en place les composants représentant les différents écrans. Au total, créez 5 écrans : 
 
-SignupScreen pour l'écran d'inscription.
-SigninScreen pour l'écran d'authentification.
-HomeScreen pour l’écran représentant la home.
-MapScreen pour l’écran représentant la carte interactive.
-ProfileScreen pour l’écran représentant les appartements de chaque user.
+- SignupScreen pour l'écran d'inscription.
+- SigninScreen pour l'écran d'authentification.
+- HomeScreen pour l’écran représentant la home.
+- MapScreen pour l’écran représentant la carte interactive.
+- ProfileScreen pour l’écran représentant les appartements de chaque user.
+- FlatScreen pour l'écran tous appartements sous forme de card.
 
 
 👉 Réalisez des intégrations très minimalistes. L’objectif est simplement d’avoir un texte qui s’affiche au centre afin d’indiquer le nom de l’écran.
