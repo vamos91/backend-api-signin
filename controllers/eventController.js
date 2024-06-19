@@ -2,31 +2,31 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 exports.index = async (req, res) => {
-    const events = await prisma.event.findMany()
-    if(events){
-        console.log(events)
-        res.status(200).json(events)
+    const flats = await prisma.flat.findMany()
+    if(flats){
+        console.log(flats)
+        res.status(200).json(flats)
     }else{
         res.status(500)
     }  
 }
 
 exports.indexPerUser = async (req, res) => {
-    console.log('index event controller')
+    console.log('index flat controller')
     const user = await prisma.users.findUnique({
         where: {
             email: req.userData.email
         }
     })
     console.log('user', user)
-    const events = await prisma.event.findMany({
+    const flats = await prisma.flat.findMany({
         where:{
             authorId : user.id
         }
     })
-    if(events){
-        console.log(events)
-        res.status(200).json(events)
+    if(flats){
+        console.log(flats)
+        res.status(200).json(flats)
     }else{
         res.status(500)
     }  
@@ -39,8 +39,8 @@ exports.create = async (req, res) => {
             email: req.userData.email
         }
     })
-    console.log('from event controller: ',user)
-   const event = await prisma.event.create({
+    console.log('from flats controller: ',user)
+   const flat = await prisma.flat.create({
         data: {
             title: req.body.title,
             description: req.body.description,
@@ -50,7 +50,7 @@ exports.create = async (req, res) => {
             authorId: user.id
         }
     })
-    if(event) {
+    if(flat) {
         res.status(200).json({message: 'New flat created !'})
     }else{
        res.status(500).json({message: 'Something wen wrong'}) 
@@ -58,10 +58,10 @@ exports.create = async (req, res) => {
 }
 
 exports.read = async (req, res) => {
-    const event = await prisma.event.findUniqueOrThrow({
+    const flat = await prisma.flat.findUniqueOrThrow({
         where:{
             id: req.params.id
         }
     })
-   res.status(200).json(event)
+   res.status(200).json(flat)
 }
