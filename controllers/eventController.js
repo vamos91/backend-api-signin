@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     if(flat) {
         res.status(200).json({message: 'New flat created !'})
     }else{
-       res.status(500).json({message: 'Something wen wrong'}) 
+       res.status(500).json({message: 'Something went wrong'}) 
     }
 }
 
