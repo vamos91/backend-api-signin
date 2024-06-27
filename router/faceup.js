@@ -8,9 +8,9 @@ const fse = require('fs-extra')
 var cloudinary = require( 'cloudinary').v2;
 
 cloudinary.config({ 
-    cloud_name: 'djqjj30cy', 
-    api_key: '923786976745876', 
-    api_secret: 'hODvMAwG4ImOu5BtzYptNG2kdhU' // Click 'View Credentials' below to copy your API secret
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET // Click 'View Credentials' below to copy your API secret
 });
 
 router.post('/upload', upload.single('avatar'),async (req, res) => {
