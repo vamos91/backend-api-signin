@@ -11,23 +11,32 @@ model Users {
   id       Int     @id @default(autoincrement())
   email    String  @unique
   password String? @db.VarChar(255)
-  flat    Flat[]
+  flat     Flat[]
+}
+
+model Message {
+  id                  Int      @id @default(autoincrement())
+  mail_exp            String   @db.VarChar(255)
+  mail_dest           String   @db.VarChar(255)
+  subject             String   @db.VarChar(255)
+  message             String   @db.Text()
+  is_message_received Boolean? @default(false)
+  created_at          DateTime @db.DateTime()
 }
 
 model Article {
-  id          Int @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   title       String @db.VarChar(255)
   description String @db.VarChar(255)
 }
 
 model Flat {
-  id         Int @id @default(autoincrement())
-  title      String @db.VarChar(255)
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
   description String @db.VarChar(255)
-  price      String @db.VarChar(255)
-  lat        Float  @db.Float()
-  lon        Float  @db.Float()
-  author     Users  @relation(fields: [authorId], references: [id])
-  authorId   Int
+  price       String @db.VarChar(255)
+  lat         Float  @db.Float()
+  lon         Float  @db.Float()
+  author      Users  @relation(fields: [authorId], references: [id])
+  authorId    Int
 }
-
