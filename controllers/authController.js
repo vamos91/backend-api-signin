@@ -1,4 +1,4 @@
-const db = require('../database/connection')
+//const db = require('../database/connection')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { PrismaClient } = require('@prisma/client') 
