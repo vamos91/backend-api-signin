@@ -1,7 +1,8 @@
 const db = require('./database/connection')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-
+const { PrismaClient } = require('@prisma/client') 
+const prisma = new PrismaClient()
 
 exports.verifyUserExist = (req, res, next) => {
     const sql = 'SELECT * FROM users where email=?'
@@ -27,19 +28,30 @@ exports.verifyPasswordLength = (req, res, next) => {
     }
 }
 
-exports.verifyUserNotExist = (req, res, next) => {
-    const sql = 'SELECT * FROM users where email=?'
-    db.query(sql, [req.body.email], (err, results, fields) => {
-        if (!err) {
-            if (results.length > 0) {
-                res.status(403).json({ message: 'User already exists' })
-            } else {
-                next() 
-            }
-        } else {
-            res.status(500).json({ message: err })
+exports.verifyUserNotExist = async (req, res, next) => {
+    const user = await prisma.users.findUnique({
+        where: {
+            email: req.body.email
         }
     })
+    console.log('verifyUserNotExist', user)
+    if (user) {
+        res.status(403).json({ message: 'User already exists' })
+    } else {
+        next()
+    }
+    // const sql = 'SELECT * FROM users where email=?'
+    // db.query(sql, [req.body.email], (err, results, fields) => {
+    //     if (!err) {
+    //         if (results.length > 0) {
+    //             res.status(403).json({ message: 'User already exists' })
+    //         } else {
+    //             next() 
+    //         }
+    //     } else {
+    //         res.status(500).json({ message: err })
+    //     }
+    // })
 }
 
 exports.verifyCredentialsExist = (req, res, next) => {
