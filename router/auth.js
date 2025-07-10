@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController')
-const middleware = require('../verifyToken')
+//const middleware = require('../verifyToken')
+const middleware = require('../verifyTokenWithORM')
 
 
 router.post('/signin', 

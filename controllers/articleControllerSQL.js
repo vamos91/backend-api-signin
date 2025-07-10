@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const db = require('../database/connection')
+//const db = require('../database/connection')
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
