@@ -7,11 +7,10 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "prisma generate",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "migrate:status": "prisma migrate status",
-    "generate": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -29,10 +28,14 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.5",
     "nodemon": "^3.1.10",
-    "uniqid": "^5.4.0"
+    "uniqid": "^5.4.0",
+    "prisma": "^6.8.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
     "prisma": "^6.8.2"
+  },
+  "engines": {
+    "node": "20"
   }
 }
